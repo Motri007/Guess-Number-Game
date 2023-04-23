@@ -12,24 +12,24 @@ namespace Game
 {
     public partial class Form1 : Form
     {
-        int rnd = 0, counter = 0;
         public Form1()
         {
             InitializeComponent();
+            input = (max + min)/2;
         }
 
+        int rnd = 0, counter = 0, input = 0, max = 999, min = 100;
         private void button1_Click(object sender, EventArgs e)
         {
             try
             {
-
-                int input = int.Parse(textBox1.Text);
+                textBox1.Text = input.ToString();
                 textBox1.Text = "";
-                if (input > 999 || input < 100)
-                {
-                    MessageBox.Show("Number is not in range");
-                    return;
-                }
+                //if (input > 999 || input < 100)
+                //{
+                //    MessageBox.Show("Number is not in range");
+                //    return;
+                //}
                 counter++;
                 label2.Text = "Round: " + counter.ToString();
                 if (counter > 10)
@@ -40,9 +40,15 @@ namespace Game
                 }
                 listBox1.Items.Add(input);
                 if (input > rnd)
-                    MessageBox.Show("Your Guess > this Number");
+                {
+                    max = input;
+                    input = (input + min) / 2;
+                }
                 else if (input < rnd)
-                    MessageBox.Show("Your Guess < this Number");
+                {
+                    min= input;
+                    input= (input + max) / 2;
+                }
                 else
                 {
                     MessageBox.Show("WIN");
